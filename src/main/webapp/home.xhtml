@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:relesia="http://java.sun.com/jsf/composite/components">
+
+<h:body>
+	<ui:composition template="/templates/common.xhtml">
+		<ui:define name="content">				
+         <h2>Login</h2>
+      <h:form>
+      <relesia:loginComponent 
+         usernameLabel="User Name: " 
+         usernameValue="#{userData.name}" 
+         passwordLabel="Password: " 
+         passwordValue="#{userData.password}"
+         loginButtonLabel="Login" 
+         loginButtonAction="#{userData.login}" />
+      </h:form>		
+      </ui:define>
+	</ui:composition>
+</h:body>
+</html>

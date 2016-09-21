@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+	<ui:composition template="/templates/common.xhtml">
+		<ui:define name="content">
+			<h2>Applications List Example</h2>
+			<h:form>
+				<h:dataTable value="#{applicationListController.all}" var="app"
+					styleClass="genericListTable" headerClass="genericListTableHeader"
+					rowClasses="genericListTableOddRow,genericListTableEvenRow">
+					<h:column>
+						<f:facet name="header">Product Name</f:facet>
+						<h:selectOneMenu value="#{app.product.id}"
+							rendered="#{app.editable}">
+							<f:selectItems value="#{productListController.all}" var="product"
+								itemLabel="#{product.name}"
+								itemValue="#{product.id}" />
+						</h:selectOneMenu>
+						<h:outputText
+							value="#{app.product.name}"
+							rendered="#{not app.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Application Name</f:facet>
+						<h:inputText value="#{app.name}" size="10"
+							rendered="#{app.editable}" />
+						<h:outputText value="#{app.name}" rendered="#{not app.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Sources</f:facet>
+						<h:inputText value="#{app.sourcePath}" size="10"
+							rendered="#{app.editable}" />
+						<h:outputText value="#{app.sourcePath}"
+							rendered="#{not app.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">SCM</f:facet>
+						<h:selectOneMenu value="#{app.scm.id}"
+							rendered="#{app.editable}">
+							<f:selectItems value="#{scmListController.all}" var="scm"
+								itemLabel="#{scm.type}"
+								itemValue="#{scm.id}" />
+						</h:selectOneMenu>
+						<h:outputText
+							value="#{app.scm.type}"
+							rendered="#{not app.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Language</f:facet>
+						<h:selectOneMenu value="#{app.language.id}"
+							rendered="#{app.editable}">
+							<f:selectItems value="#{languageListController.all}" var="language"
+								itemLabel="#{language.name} : #{language.version}"
+								itemValue="#{language.id}" />
+						</h:selectOneMenu>
+						<h:outputText
+							value="#{app.language.name} : #{app.language.version}"
+							rendered="#{not app.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Build Type</f:facet>
+						<h:selectOneMenu value="#{app.buildType.id}"
+							rendered="#{app.editable}">
+							<f:selectItems value="#{buildTypeListController.all}" var="bType"
+								itemLabel="#{bType.toolName}:#{bType.version}"
+								itemValue="#{bType.id}" />
+						</h:selectOneMenu>
+						<h:outputText
+							value="#{app.buildType.toolName} : #{app.buildType.version}"
+							rendered="#{not app.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Release Repo</f:facet>
+						<h:selectOneMenu value="#{app.releaseRepo.id}"
+							rendered="#{app.editable}">
+							<f:selectItems value="#{releaseRepoListController.all}" var="releaseRepo"
+								itemLabel="#{releaseRepo.type} : #{releaseRepo.url}"
+								itemValue="#{releaseRepo.id}" />
+						</h:selectOneMenu>
+						<h:outputText
+							value="#{app.releaseRepo.type} : #{app.releaseRepo.url}"
+							rendered="#{not app.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Actions</f:facet>
+						<h:commandLink value="Edit"
+							action="#{applicationListController.edit(app)}"
+							rendered="#{not app.editable}" />
+						<h:commandLink value="Save"
+							action="#{applicationListController.save(app)}" />
+						<h:commandLink value="Delete"
+							action="#{applicationListController.delete(app)}" />
+					</h:column>
+				</h:dataTable>
+				<h:commandButton value="Add"
+					action="#{applicationListController.addNew()}" />
+				<h:commandButton value="Save Changes"
+					action="#{applicationListController.saveAll()}" />
+				<h:commandButton value="Cancel"
+					action="#{applicationListController.cancelChanges()}" />
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+	<ui:composition template="/templates/common.xhtml">
+		<ui:define name="content">
+			<h2>Products List Example</h2>
+			<h:form>
+				<h:dataTable value="#{productListController.all}" var="product"
+					styleClass="genericListTable" headerClass="genericListTableHeader"
+					rowClasses="genericListTableOddRow,genericListTableEvenRow">
+					<h:column>
+						<f:facet name="header">Product Name</f:facet>
+						<h:inputText value="#{product.name}" size="10"
+							rendered="#{product.editable}" />
+						<h:outputText value="#{product.name}"
+							rendered="#{not product.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Actions</f:facet>
+						<h:commandLink value="Edit"
+							action="#{productListController.edit(product)}"
+							rendered="#{not product.editable}" />
+						<h:commandLink value="Save"
+							action="#{productListController.save(product)}" />
+						<h:commandLink value="Delete"
+							action="#{productListController.delete(product)}" />
+					</h:column>
+				</h:dataTable>
+				<h:commandButton value="Add"
+					action="#{productListController.addNew()}" />
+				<h:commandButton value="Save Changes"
+					action="#{productListController.saveAll()}" />
+				<h:commandButton value="Cancel"
+					action="#{productListController.cancelChanges()}" />
+			</h:form>
+			<h:outputText
+				value="#{productListController.state} : #{productListController.stateMessage}" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

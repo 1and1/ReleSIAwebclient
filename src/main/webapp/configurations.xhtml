@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+	<ui:composition template="/templates/common.xhtml">
+		<ui:define name="content">
+			<h:outputText
+				value="#{scmListController.state} : #{scmListController.stateMessage}" />
+			<h:outputText
+				value="#{languageListController.state} : #{languageListController.stateMessage}" />
+			<h:outputText
+				value="#{buildTypeListController.state} : #{buildTypeListController.stateMessage}" />
+			<h:outputText
+				value="#{releaseRepoListController.state} : #{releaseRepoListController.stateMessage}" />
+
+			<h2>Source Control Management Systems</h2>
+			<h:form>
+				<h:dataTable value="#{scmListController.all}" var="scm"
+					styleClass="genericListTable" headerClass="genericListTableHeader"
+					rowClasses="genericListTableOddRow,genericListTableEvenRow">
+					<h:column>
+						<f:facet name="header">Name</f:facet>
+						<h:inputText value="#{scm.name}" size="10"
+							rendered="#{scm.editable}" />
+						<h:outputText value="#{scm.name}" rendered="#{not scm.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Type</f:facet>
+						<h:inputText value="#{scm.type}" size="10"
+							rendered="#{scm.editable}" />
+						<h:outputText value="#{scm.type}" rendered="#{not scm.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">URL</f:facet>
+						<h:inputText value="#{scm.url}" size="10"
+							rendered="#{scm.editable}" />
+						<h:outputText value="#{scm.url}" rendered="#{not scm.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Supports AUTH</f:facet>
+						<h:selectBooleanCheckbox value="#{scm.supportsAuth}"
+							disabled="#{not scm.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Actions</f:facet>
+						<h:commandLink value="Edit"
+							action="#{scmListController.edit(scm)}"
+							rendered="#{not scm.editable}" />
+						<h:commandLink value="Save"
+							action="#{scmListController.save(scm)}" />
+						<h:commandLink value="Delete"
+							action="#{scmListController.delete(scm)}" />
+					</h:column>
+				</h:dataTable>
+				<h:commandButton value="Add" action="#{scmListController.addNew()}" />
+				<h:commandButton value="Save SCMs"
+					action="#{scmListController.saveAll()}" />
+				<h:commandButton value="Cancel"
+					action="#{scmListController.cancelChanges()}" />
+			</h:form>
+
+			<h2>Programming Languages</h2>
+			<h:form>
+				<h:dataTable value="#{languageListController.all}" var="language"
+					styleClass="genericListTable" headerClass="genericListTableHeader"
+					rowClasses="genericListTableOddRow,genericListTableEvenRow">
+					<h:column>
+						<f:facet name="header">Name</f:facet>
+						<h:inputText value="#{language.name}" size="10"
+							rendered="#{language.editable}" />
+						<h:outputText value="#{language.name}"
+							rendered="#{not language.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Version</f:facet>
+						<h:inputText value="#{language.version}" size="10"
+							rendered="#{language.editable}" />
+						<h:outputText value="#{language.version}"
+							rendered="#{not language.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Actions</f:facet>
+						<h:commandLink value="Edit"
+							action="#{languageListController.edit(language)}"
+							rendered="#{not language.editable}" />
+						<h:commandLink value="Save"
+							action="#{languageListController.save(language)}" />
+						<h:commandLink value="Delete"
+							action="#{languageListController.delete(language)}" />
+					</h:column>
+				</h:dataTable>
+				<h:commandButton value="Add"
+					action="#{languageListController.addNew}" />
+				<h:commandButton value="Save Languages"
+					action="#{languageListController.saveAll}" />
+				<h:commandButton value="Cancel"
+					action="#{languageListController.cancelChanges}" />
+			</h:form>
+
+			<h2>Built Systems</h2>
+			<h:form>
+				<h:dataTable value="#{buildTypeListController.all}" var="buildType"
+					styleClass="genericListTable" headerClass="genericListTableHeader"
+					rowClasses="genericListTableOddRow,genericListTableEvenRow">
+					<h:column>
+						<f:facet name="header">Tool Name</f:facet>
+						<h:inputText value="#{buildType.toolName}" size="10"
+							rendered="#{buildType.editable}" />
+						<h:outputText value="#{buildType.toolName}"
+							rendered="#{not buildType.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Tool version</f:facet>
+						<h:inputText value="#{buildType.version}" size="10"
+							rendered="#{buildType.editable}" />
+						<h:outputText value="#{buildType.version}"
+							rendered="#{not buildType.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Has Dependency Management</f:facet>
+						<h:selectBooleanCheckbox value="#{buildType.supportsDependency}"
+							disabled="#{not buildType.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Has Build Support</f:facet>
+						<h:selectBooleanCheckbox value="#{buildType.supportsBuild}"
+							disabled="#{not buildType.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Has Staging Support</f:facet>
+						<h:selectBooleanCheckbox value="#{buildType.supportsStaging}"
+							disabled="#{not buildType.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Has Release Support</f:facet>
+						<h:selectBooleanCheckbox value="#{buildType.supportsRelease}"
+							disabled="#{not buildType.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Has Auth Support</f:facet>
+						<h:selectBooleanCheckbox value="#{buildType.supportsAuth}"
+							disabled="#{not buildType.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Actions</f:facet>
+						<h:commandLink value="Edit"
+							action="#{buildTypeListController.edit}"
+							rendered="#{not buildType.editable}" />
+						<h:commandLink value="Save"
+							action="#{buildTypeListController.save(buildType)}" />
+						<h:commandLink value="Delete"
+							action="#{buildTypeListController.delete(buildType)}" />
+					</h:column>
+				</h:dataTable>
+				<h:commandButton value="Add"
+					action="#{buildTypeListController.addNew}" />
+				<h:commandButton value="Save Build Types"
+					action="#{buildTypeListController.saveAll}" />
+				<h:commandButton value="Cancel"
+					action="#{buildTypeListController.cancelChanges}" />
+			</h:form>
+
+			<h2>Release Repositories</h2>
+			<h:form>
+				<h:dataTable value="#{releaseRepoListController.all}"
+					var="releaseRepo" styleClass="genericListTable"
+					headerClass="genericListTableHeader"
+					rowClasses="genericListTableOddRow,genericListTableEvenRow">
+					<h:column>
+						<f:facet name="header">Repo Name</f:facet>
+						<h:inputText value="#{releaseRepo.name}" size="10"
+							rendered="#{releaseRepo.editable}" />
+						<h:outputText value="#{releaseRepo.name}"
+							rendered="#{not releaseRepo.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Repo Type</f:facet>
+						<h:inputText value="#{releaseRepo.type}" size="10"
+							rendered="#{releaseRepo.editable}" />
+						<h:outputText value="#{releaseRepo.type}"
+							rendered="#{not releaseRepo.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">URL</f:facet>
+						<h:inputText value="#{releaseRepo.url}" size="10"
+							rendered="#{releaseRepo.editable}" />
+						<h:outputText value="#{releaseRepo.url}"
+							rendered="#{not releaseRepo.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Has Auth Support</f:facet>
+						<h:selectBooleanCheckbox value="#{releaseRepo.supportsAuth}"
+							disabled="#{not releaseRepo.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Actions</f:facet>
+						<h:commandLink value="Edit"
+							action="#{releaseRepoListController.edit(releaseRepo)}"
+							rendered="#{not releaseRepo.editable}" />
+						<h:commandLink value="Save"
+							action="#{releaseRepoListController.save(releaseRepo)}" />
+						<h:commandLink value="Delete"
+							action="#{releaseRepoListController.delete(releaseRepo)}" />
+					</h:column>
+				</h:dataTable>
+				<h:commandButton value="Add"
+					action="#{releaseRepoListController.addNew}" />
+				<h:commandButton value="Save Release Repositories"
+					action="#{releaseRepoListController.saveAll}" />
+				<h:commandButton value="Cancel"
+					action="#{releaseRepoListController.cancelChanges}" />
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

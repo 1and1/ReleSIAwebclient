@@ -1,0 +1,84 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.genericListTable {
+	border-collapse: collapse;
+	border: 1px solid #000000;
+	width: 100%;
+}
+
+.genericListTableHeader {
+	text-align: center;
+	background: none repeat scroll 0 0 #B5B5B5;
+	border: 1px solid #000000;
+	padding: 2px;
+}
+
+.genericListTableOddRow {
+	text-align: center;
+	background: none repeat scroll 0 0 #FFFFFFF;
+}
+
+.genericListTableEvenRow {
+	text-align: center;
+	background: none repeat scroll 0 0 #D3D3D3;
+}
+
+.genericListTableOddRow td, .genericListTableEvenRow td {
+	border: 1px solid #000;
+}
+
+.genericListTable tr td a {
+	text-decoration: none;
+	text-align: center;
+	padding: 5px 0;
+	background: #485e49;
+	color: #eee;
+	float: left;
+}
+
+
+div#navBar {
+	width: 100%;
+	margin: 0;
+	background-color: #485e49;
+	top: 0;	
+	float:right;
+    position:relative;
+    left:0;
+    text-align:center;
+}
+
+div#navBar ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: relative;
+	left: 25%;
+}
+
+div#navBar ul  li {
+	display: inline;
+}
+
+div#navBar ul  li a {
+	text-align: center;
+	border-left: 1px solid #fff;
+}
+
+div#navBar ul  li a:hover {
+	background: #a2b3a1;
+	color: #000
+}
+
+.navButton {
+	text-decoration: none;
+	text-align: center;
+	padding: 5px 0;
+	width: 100px;
+	background: #485e49;
+	color: #eee;
+	float: left;
+}

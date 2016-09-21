@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+   <ui:composition template="/templates/common.xhtml">	
+      <ui:define name="content">
+			<h2>Issues List Example</h2>
+			<h:form>
+				<h:dataTable value="#{issueListController.all}" var="issue"
+					styleClass="genericListTable" headerClass="genericListTableHeader"
+					rowClasses="genericListTableOddRow,genericListTableEvenRow">
+					<h:column>
+						<f:facet name="header">Application Name</f:facet>
+						<h:selectOneMenu value="#{issue.application.id}"
+							rendered="#{issue.editable}">
+							<f:selectItems value="#{applicationListController.all}" var="app"
+								itemLabel="#{app.name}"
+								itemValue="#{app.id}" />
+						</h:selectOneMenu>
+						<h:outputText
+							value="#{issue.application.name}"
+							rendered="#{not issue.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Subject</f:facet>
+						<h:inputText value="#{issue.subject}" size="10"
+							rendered="#{issue.editable}" />
+						<h:outputText value="#{issue.subject}"
+							rendered="#{not issue.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Description</f:facet>
+						<h:inputText value="#{issue.description}" size="10"
+							rendered="#{issue.editable}" />
+						<h:outputText value="#{issue.description}"
+							rendered="#{not issue.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Refference Path</f:facet>
+						<h:inputText value="#{issue.refferencePath}" size="10"
+							rendered="#{issue.editable}" />
+						<h:outputText value="#{issue.refferencePath}"
+							rendered="#{not issue.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Type</f:facet>
+						<h:inputText value="#{issue.issueType}" size="10"
+							rendered="#{issue.editable}" />
+						<h:outputText value="#{issue.issueType}"
+							rendered="#{not issue.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Assignee</f:facet>
+						<h:inputText value="#{issue.assignee}" size="10"
+							rendered="#{issue.editable}" />
+						<h:outputText value="#{issue.assignee}"
+							rendered="#{not issue.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Status</f:facet>
+						<h:inputText value="#{issue.status}" size="10"
+							rendered="#{issue.editable}" />
+						<h:outputText value="#{issue.status}"
+							rendered="#{not issue.editable}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Actions</f:facet>
+						<h:commandLink value="Edit"
+							action="#{issueListController.edit(issue)}"
+							rendered="#{not issue.editable}" />
+						<h:commandLink value="Save"
+							action="#{issueListController.save(issue)}" />
+						<h:commandLink value="Delete"
+							action="#{issueListController.delete(issue)}" />
+					</h:column>
+				</h:dataTable>
+				<h:commandButton value="Add"
+					action="#{issueListController.addNew()}" />
+				<h:commandButton value="Save Changes"
+					action="#{issueListController.saveAll()}" />
+				<h:commandButton value="Cancel"
+					action="#{issueListController.cancelChanges()}" />
+			</h:form>
+		</ui:define>
+   </ui:composition>
+</h:body>
+</html>
